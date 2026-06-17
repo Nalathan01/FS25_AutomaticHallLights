@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="109">
+    <author>Nalathan</author>
+    <version>1.0.0.0</version>
+    <title>
+        <en>Automatic Hall Lights</en>
+        <de>Automatische Hallenbeleuchtung</de>
+        <fr>Éclairage Automatique Des Bâtiments</fr>
+    </title>
+    <description>
+        <en><![CDATA[This mod automatically handles the lighting of suitable halls. When it gets dark in the evening, suitable manual hall lights are switched on. When it gets light again in the morning or time skips forward after sleeping, the lights are switched off shortly afterwards.
+
+After a time skip, for example after sleeping, the lights are adjusted to the current time of day with a short delay. It can also take a short moment after loading a savegame until the lighting is switched on or off according to the current light conditions.]]></en>
+        <de><![CDATA[Diese Mod übernimmt die Beleuchtung geeigneter Hallen automatisch. Wenn es abends dunkel wird, werden passende manuelle Hallenlichter eingeschaltet. Wird es morgens wieder hell oder springt die Zeit nach dem Schlafen weiter, werden die Lichter kurz darauf wieder ausgeschaltet.
+
+Nach einem Zeitsprung, beispielsweise durch Schlafen, werden die Lichter mit einer kurzen Verzögerung an den aktuellen Tageszeitstand angepasst. Auch direkt nach dem Laden eines Spielstands kann es kurz dauern, bis die Beleuchtung den aktuellen Lichtverhältnissen entsprechend ein- oder ausgeschaltet wird.]]></de>
+        <fr><![CDATA[Ce mod gère automatiquement l'éclairage des bâtiments adaptés. Lorsque la nuit tombe, les éclairages manuels appropriés sont allumés. Lorsque le jour revient ou que le temps avance après avoir dormi, les lumières sont éteintes peu après.
+
+Après un saut de temps, par exemple après avoir dormi, les lumières sont ajustées à l'heure actuelle de la journée avec un court délai. Après le chargement d'une sauvegarde, il peut également falloir un court instant avant que l'éclairage soit activé ou désactivé selon les conditions de luminosité actuelles.]]></fr>
+    </description>
+    <iconFilename>icon_AutomaticHallLights.dds</iconFilename>
+    <multiplayer supported="true"/>
+    <extraSourceFiles>
+        <sourceFile filename="scripts/AutomaticHallLights.lua"/>
+    </extraSourceFiles>
+    <l10n>
+        <text name="ahl_modName">
+            <en>Automatic Hall Lights</en>
+            <de>Automatische Hallenbeleuchtung</de>
+            <fr>Éclairage Automatique Des Bâtiments</fr>
+        </text>
+    </l10n>
+</modDesc>
