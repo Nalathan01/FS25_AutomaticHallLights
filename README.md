@@ -10,9 +10,9 @@ Automatic Hall Lights is a Farming Simulator 25 mod for automatically controllin
 * Adjusts lights shortly after loading a savegame
 * Works in the background without an extra menu or player interaction
 
-## Current version
+## Current version:
 
-ModHub release: 1.0.0.0
+[Download](https://sharemods.com/f6bvzvav8kbq/FS25_AutomaticHallLights.zip.html)
 
 ## Notes
 
