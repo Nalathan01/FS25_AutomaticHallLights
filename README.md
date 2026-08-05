@@ -47,3 +47,4 @@ Please include:
 * YouTube: https://www.youtube.com/@nalathangaming
 * Forbidden Mods: https://forbidden-mods.de/filebase/file/78007-automatische-hallenbeleuchtung/
 * ModHub: https://www.farming-simulator.com/mods.php?title=fs2025&searchMod=Nalathan
+* Issues: https://github.com/Nalathan01/FS25_AutomaticHallLights/issues
