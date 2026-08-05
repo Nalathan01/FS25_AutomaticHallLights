@@ -189,16 +189,36 @@ local function ahlSwitchPlaceableLights(placeable, minute)
 
     local noEventSend = not ahlIsMultiplayer()
 
+    -- Zustand wird am Placeable gespeichert, damit er Rescans übersteht und mit dem Objekt selbst verschwindet.
+    if placeable.ahlLastTargetStates == nil then
+        placeable.ahlLastTargetStates = {}
+    end
+    if placeable.ahlPendingConfirm == nil then
+        placeable.ahlPendingConfirm = {}
+    end
+    local lastStates = placeable.ahlLastTargetStates
+    local pendingConfirm = placeable.ahlPendingConfirm
+
     for groupIndex, group in ipairs(placeable.spec_lights.groups) do
         if type(group) == "table" and group.hasManualLights then
             local activateMinute, deactivateMinute = ahlGetGroupTiming(group)
             local targetState = ahlStateForInterval(minute, activateMinute, deactivateMinute)
+            local key = group.index or groupIndex
+            local previousTarget = lastStates[key]
+            local isFirstSync = previousTarget == nil
+            local needsConfirmRepeat = pendingConfirm[key] == true
 
-            if group.isActive ~= targetState then
+            -- Vergleich gegen den zuletzt selbst gesetzten Zielwert (nicht group.isActive), damit manuelle
+            -- Spieler-Toggles zwischen den Zeitschwellen nicht sofort wieder zurückgedreht werden.
+            if isFirstSync or previousTarget ~= targetState or needsConfirmRepeat then
                 ahlPcall(function()
-                    placeable:setGroupIsActive(group.index or groupIndex, targetState, noEventSend)
+                    placeable:setGroupIsActive(key, targetState, noEventSend)
                     return true
                 end, false)
+                lastStates[key] = targetState
+
+                -- Erster Kontakt: eine Runde später erneut bestätigen, falls die Lichtkomponenten beim ersten Aufruf noch nicht bereit waren.
+                pendingConfirm[key] = isFirstSync and true or nil
             end
         end
     end
