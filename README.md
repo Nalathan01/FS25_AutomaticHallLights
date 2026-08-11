@@ -1,54 +1,24 @@
 # Automatic Hall Lights
 
-Automatic Hall Lights is a Farming Simulator 25 mod for automatically controlling suitable manual hall lights.
+Switches manual hall lights on when it gets dark and off again once it's light, so you don't have to walk around flipping switches yourself every dusk and dawn.
 
-## Features
+## What it does
 
-- Switches suitable manual hall lights on automatically in the evening
-- Switches suitable manual hall lights off again during the day
-- Reacts after sleeping or other time jumps
-- Adjusts lights shortly after loading a savegame
-- Works in the background without an extra menu or player interaction
+- Turns on matching manual hall lights automatically in the evening, off again during the day
+- Catches up correctly after sleeping or any other time skip
+- Adjusts lighting shortly after a savegame loads
+- No menu, no settings, just runs in the background
 
-## Notes
-
-This mod is intended for suitable placeable halls, sheds and buildings with manual light groups.
-
-When it gets dark, matching manual hall lights are switched on automatically. When it gets light again, or when the time changes after sleeping, the lights are switched off again shortly afterwards.
-
-Lights may react with a short delay after loading a savegame or after a time jump. This is intentional so the mod can adjust the lighting after the game has finished loading or updating the current time of day.
-
-## Current version
-
-0.9.0.0
+It only reacts to placeable halls, sheds and buildings that have manual light groups. The short delay after loading or a time skip is intentional, it gives the mod a moment to read the current time before deciding what to switch.
 
 ## Feedback
 
-Bug reports, compatibility feedback and feature requests are welcome through GitHub Issues.
-
-Please include:
-
-- Mod version
-- Game version
-- Map name
-- A short description of the light or building used
-- Other relevant mods
-- log.txt if the issue is technical
-
-## Download
-
-Always up to date on Forbidden Mods:
-
-https://forbidden-mods.de/filebase/file/78007-automatische-hallenbeleuchtung/
-
-Not yet listed individually on ModHub, browse all Nalathan mods:
-
-https://www.farming-simulator.com/mods.php?title=fs2025&searchMod=Nalathan
+Found a hall it doesn't recognize, or lights doing the wrong thing? Open a GitHub issue with your mod/game version and which building it was, `log.txt` helps if it looks like a script error.
 
 ## Links
 
+- Forbidden Mods: https://forbidden-mods.de/filebase/file/78007-automatische-hallenbeleuchtung/
+- ModHub: not listed individually yet, browse all Nalathan mods: https://www.farming-simulator.com/mods.php?title=fs2025&searchMod=Nalathan
 - Website: https://www.nalathan.de/
 - YouTube: https://www.youtube.com/@nalathangaming
-- Forbidden Mods: https://forbidden-mods.de/filebase/file/78007-automatische-hallenbeleuchtung/
-- ModHub: https://www.farming-simulator.com/mods.php?title=fs2025&searchMod=Nalathan
 - Issues: https://github.com/Nalathan01/FS25_AutomaticHallLights/issues
