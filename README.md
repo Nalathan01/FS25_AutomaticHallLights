@@ -4,7 +4,7 @@ Switches manual hall lights on when it gets dark and off again once it's light, 
 
 ## What it does
 
-- Turns on matching manual hall lights automatically in the evening, off again during the day
+- Turns on matching manual hall lights automatically when it gets dark, off again when it gets light, following the real daylight of each season
 - Catches up correctly after sleeping or any other time skip
 - Adjusts lighting shortly after a savegame loads
 - No menu, no settings, just runs in the background

@@ -43,25 +43,15 @@ local function ahlContainsAny(value, words)
     return false
 end
 
-local function ahlPcall(fn, fallback)
-    local ok, result = pcall(fn)
-    if ok then
-        return result
-    end
-    return fallback
-end
-
 local function ahlGetName(object)
     if type(object) ~= "table" then
         return ahlText(object)
     end
 
-    local name = ahlPcall(function()
-        if object.getName ~= nil then
-            return object:getName()
-        end
-        return nil
-    end, nil)
+    local name = nil
+    if object.getName ~= nil then
+        name = object:getName()
+    end
 
     if name ~= nil and name ~= "" then
         return tostring(name)
@@ -130,6 +120,19 @@ local function ahlGetMinuteOfDay()
     return nil
 end
 
+local function ahlGetIsDark()
+    if g_currentMission == nil or g_currentMission.environment == nil then
+        return nil
+    end
+
+    local isSunOn = g_currentMission.environment.isSunOn
+    if type(isSunOn) ~= "boolean" then
+        return nil
+    end
+
+    return not isSunOn
+end
+
 local function ahlTimeValueToMinute(value)
     if type(value) ~= "number" then
         return nil
@@ -166,7 +169,7 @@ end
 
 local function ahlIsServer()
     if g_currentMission ~= nil and type(g_currentMission.getIsServer) == "function" then
-        return ahlPcall(function() return g_currentMission:getIsServer() end, g_server ~= nil) == true
+        return g_currentMission:getIsServer() == true
     end
     return g_server ~= nil
 end
@@ -178,7 +181,7 @@ local function ahlIsMultiplayer()
     return g_server ~= nil and g_client ~= nil
 end
 
-local function ahlSwitchPlaceableLights(placeable, minute)
+local function ahlSwitchPlaceableLights(placeable, minute, isDark)
     if type(placeable) ~= "table" or type(placeable.spec_lights) ~= "table" or type(placeable.spec_lights.groups) ~= "table" then
         return
     end
@@ -187,9 +190,16 @@ local function ahlSwitchPlaceableLights(placeable, minute)
         return
     end
 
+    if placeable.isDeleting == true or placeable.isDeleted == true then
+        return
+    end
+
+    if type(placeable.getIsSynchronized) ~= "function" or not placeable:getIsSynchronized() then
+        return
+    end
+
     local noEventSend = not ahlIsMultiplayer()
 
-    -- Zustand wird am Placeable gespeichert, damit er Rescans übersteht und mit dem Objekt selbst verschwindet.
     if placeable.ahlLastTargetStates == nil then
         placeable.ahlLastTargetStates = {}
     end
@@ -201,23 +211,20 @@ local function ahlSwitchPlaceableLights(placeable, minute)
 
     for groupIndex, group in ipairs(placeable.spec_lights.groups) do
         if type(group) == "table" and group.hasManualLights then
-            local activateMinute, deactivateMinute = ahlGetGroupTiming(group)
-            local targetState = ahlStateForInterval(minute, activateMinute, deactivateMinute)
+            local targetState = isDark
+            if targetState == nil then
+                local activateMinute, deactivateMinute = ahlGetGroupTiming(group)
+                targetState = ahlStateForInterval(minute, activateMinute, deactivateMinute)
+            end
             local key = group.index or groupIndex
             local previousTarget = lastStates[key]
             local isFirstSync = previousTarget == nil
             local needsConfirmRepeat = pendingConfirm[key] == true
 
-            -- Vergleich gegen den zuletzt selbst gesetzten Zielwert (nicht group.isActive), damit manuelle
-            -- Spieler-Toggles zwischen den Zeitschwellen nicht sofort wieder zurückgedreht werden.
             if isFirstSync or previousTarget ~= targetState or needsConfirmRepeat then
-                ahlPcall(function()
-                    placeable:setGroupIsActive(key, targetState, noEventSend)
-                    return true
-                end, false)
+                placeable:setGroupIsActive(key, targetState, noEventSend)
                 lastStates[key] = targetState
 
-                -- Erster Kontakt: eine Runde später erneut bestätigen, falls die Lichtkomponenten beim ersten Aufruf noch nicht bereit waren.
                 pendingConfirm[key] = isFirstSync and true or nil
             end
         end
@@ -293,18 +300,19 @@ function AutomaticHallLights:update(dt)
     end
 
     local minute = ahlGetMinuteOfDay()
-    if minute ~= nil then
-        self:applyAutomaticLights(minute)
+    local isDark = ahlGetIsDark()
+    if minute ~= nil or isDark ~= nil then
+        self:applyAutomaticLights(minute, isDark)
     end
 end
 
-function AutomaticHallLights:applyAutomaticLights(minute)
+function AutomaticHallLights:applyAutomaticLights(minute, isDark)
     if type(self.targetPlaceables) ~= "table" then
         return
     end
 
     for _, placeable in ipairs(self.targetPlaceables) do
-        ahlSwitchPlaceableLights(placeable, minute)
+        ahlSwitchPlaceableLights(placeable, minute, isDark)
     end
 end
 

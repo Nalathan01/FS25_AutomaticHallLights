@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<modDesc descVersion="109">
+<modDesc descVersion="113">
     <author>Nalathan</author>
-    <version>1.0.1.0</version>
+    <version>1.0.2.0</version>
     <title>
         <en>Automatic Hall Lights</en>
         <de>Automatische Hallenbeleuchtung</de>
@@ -12,17 +12,35 @@
 
 After a time skip, for example after sleeping, the lights are adjusted to the current time of day with a short delay. It can also take a short moment after loading a savegame until the lighting is switched on or off according to the current light conditions.
 
-GitHub: https://github.com/Nalathan01/FS25_AutomaticHallLights/issues]]></en>
+GitHub: https://github.com/Nalathan01/FS25_AutomaticHallLights/issues
+
+Changelog 1.0.2.0:
+- Lights now follow the actual daylight instead of a fixed time, so they switch on earlier in winter and later in summer
+- Compatibility with the current game version
+- Lights are only switched on buildings that are fully loaded and not being removed
+- Error handling reworked: possible problems are now checked in advance instead of being silently suppressed]]></en>
         <de><![CDATA[Diese Mod übernimmt die Beleuchtung geeigneter Hallen automatisch. Wenn es abends dunkel wird, werden passende manuelle Hallenlichter eingeschaltet. Wird es morgens wieder hell oder springt die Zeit nach dem Schlafen weiter, werden die Lichter kurz darauf wieder ausgeschaltet.
 
 Nach einem Zeitsprung, beispielsweise durch Schlafen, werden die Lichter mit einer kurzen Verzögerung an den aktuellen Tageszeitstand angepasst. Auch direkt nach dem Laden eines Spielstands kann es kurz dauern, bis die Beleuchtung den aktuellen Lichtverhältnissen entsprechend ein- oder ausgeschaltet wird.
 
-GitHub: https://github.com/Nalathan01/FS25_AutomaticHallLights/issues]]></de>
+GitHub: https://github.com/Nalathan01/FS25_AutomaticHallLights/issues
+
+Changelog 1.0.2.0:
+- Die Lichter richten sich jetzt nach dem tatsächlichen Tageslicht statt nach einer festen Uhrzeit und gehen im Winter früher und im Sommer später an
+- Kompatibilität mit der aktuellen Spielversion
+- Lichter werden nur noch an Gebäuden geschaltet, die vollständig geladen sind und nicht gerade entfernt werden
+- Fehlerbehandlung überarbeitet: mögliche Probleme werden jetzt vorab geprüft, statt still unterdrückt zu werden]]></de>
         <fr><![CDATA[Ce mod gère automatiquement l'éclairage des bâtiments adaptés. Lorsque la nuit tombe, les éclairages manuels appropriés sont allumés. Lorsque le jour revient ou que le temps avance après avoir dormi, les lumières sont éteintes peu après.
 
 Après un saut de temps, par exemple après avoir dormi, les lumières sont ajustées à l'heure actuelle de la journée avec un court délai. Après le chargement d'une sauvegarde, il peut également falloir un court instant avant que l'éclairage soit activé ou désactivé selon les conditions de luminosité actuelles.
 
-GitHub: https://github.com/Nalathan01/FS25_AutomaticHallLights/issues]]></fr>
+GitHub: https://github.com/Nalathan01/FS25_AutomaticHallLights/issues
+
+Changelog 1.0.2.0:
+- Les lumières suivent désormais la lumière du jour réelle au lieu d'une heure fixe et s'allument plus tôt en hiver et plus tard en été
+- Compatibilité avec la version actuelle du jeu
+- Les lumières ne sont plus commutées que sur les bâtiments entièrement chargés et qui ne sont pas en cours de suppression
+- Gestion des erreurs revue : les problèmes possibles sont désormais vérifiés à l'avance au lieu d'être ignorés silencieusement]]></fr>
     </description>
     <iconFilename>icon_AutomaticHallLights.dds</iconFilename>
     <multiplayer supported="true"/>
